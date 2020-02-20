@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>user-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-list>
+    <ion-item *ngFor="let user of userList">
+      {{ user.name }}
+    <div class="item-note" slot="end">{{ user.email }}</div>
+    </ion-item>
+  </ion-list>
+</ion-content>

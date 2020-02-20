@@ -18,6 +18,16 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
+      title: 'User List',
+      url: '/user-list',
+      icon: 'user'
+    },
+    {
+      title: 'Product List',
+      url: '/product-list',
+      icon: 'user'
+    },
+    {
       title: 'Inbox',
       url: '/folder/Inbox',
       icon: 'mail'

@@ -24,3 +24,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/* Custom CSS */
+.logo {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bg {
+    --background: url(/assets/images/bg.jpg) no-repeat center center/cover;
+}
+
+.errTxt {
+    font-size: x-small;
+    font-style: italic;
+}

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>product-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-list>
+    <ion-item *ngFor="let product of productList">    
+      <ion-thumbnail slot="start">
+        <img src="./assets/images/logo.png">
+      </ion-thumbnail>
+      <ion-label>{{ product.name }}</ion-label>
+      <div class="item-note" color="primary" slot="end">{{ product.price | currency:"RM"}}</div>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full" (click)="refresh()">Refresh List</ion-button>
+</ion-content>
