@@ -1,21 +1,21 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class LoginPage implements OnInit {
-
+export class RegisterPage implements OnInit {
+  
   userForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public toastController: ToastController
+    private toastController: ToastController
   ) {
     this.initForm();
   }
@@ -26,24 +26,26 @@ export class LoginPage implements OnInit {
   initForm() {
     //initiliaze form
     this.userForm = this.formBuilder.group({
-      username:'',
+      name:'',
+      email:'',
       password:''
     });
   }
 
-  login () {
-    var usernameIn = this.userForm.controls['username'].value;
+  register () {
+    var nameIn = this.userForm.controls['name'].value;
+    var emailIn = this.userForm.controls['email'].value;
     var passwordIn = this.userForm.controls['password'].value;
 
-    if((usernameIn == '') || (passwordIn == '')) {
-      this.presentToast("Please fill username and password!");
+    if((nameIn == '') || (emailIn == '') || (passwordIn == '')) {
+      this.presentToast("Please fill username, email and password!");
     } else {
       var dummyUser = "ashahir";
       var dummyPass = "123456";
 
-      console.log(usernameIn + " " + passwordIn);
+      console.log(nameIn + " " + passwordIn);
 
-      if((usernameIn == dummyUser) && (passwordIn == dummyPass)) {
+      if((nameIn == dummyUser) && (passwordIn == dummyPass)) {
         this.router.navigateByUrl("/home");
       } else {
         this.presentToast("Username or password not match!");
@@ -51,8 +53,8 @@ export class LoginPage implements OnInit {
     }
   }
 
-  register() {
-    this.router.navigateByUrl("/register");
+  login() {
+    this.router.navigateByUrl("/login");
   }
 
   landing() {
@@ -67,4 +69,5 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
+
 }
