@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -26,18 +26,21 @@ export class LoginPage implements OnInit {
   initForm() {
     //initiliaze form
     this.userForm = this.formBuilder.group({
-      username:'',
-      password:''
+      username:['', Validators.required],
+      password:['', [
+        Validators.required,
+        Validators.minLength(6)
+      ]]
     });
   }
 
   login () {
-    var usernameIn = this.userForm.controls['username'].value;
-    var passwordIn = this.userForm.controls['password'].value;
+    if (this.userForm.valid) {
+      let usernameIn = this.userForm.controls['username'].value;
+      let passwordIn = this.userForm.controls['password'].value;
 
-    if((usernameIn == '') || (passwordIn == '')) {
-      this.presentToast("Please fill username and password!");
-    } else {
+      console.log(this.userForm.valid);
+
       var dummyUser = "ashahir";
       var dummyPass = "123456";
 
@@ -48,6 +51,8 @@ export class LoginPage implements OnInit {
       } else {
         this.presentToast("Username or password not match!");
       }
+    } else {
+      this.presentToast("Please fill username and password!");
     }
   }
 
@@ -57,6 +62,14 @@ export class LoginPage implements OnInit {
 
   landing() {
     this.router.navigateByUrl("/landing");
+  }
+
+  resetForm() {
+    this.userForm.reset();
+    this.userForm.patchValue({
+      username:'',
+      password:''
+    });
   }
 
   async presentToast(msg) {
