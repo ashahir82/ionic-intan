@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from './../model/product';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,16 +11,16 @@ export class ProductListPage implements OnInit {
 
   productList : Product[] = Array<Product>();
 
-  constructor() { }
+  constructor(
+    private productSvc: ProductService,
+  ) { }
 
   ngOnInit() {
-    for (let i = 0; i < 10; i++) {
-      let productBaru = new Product();
-      productBaru.setName("Product Name " + i);
-      productBaru.setPrice(Math.floor(Math.random() * 100)+1);
-      this.productList.push(productBaru);
-    }
-    console.log(this.productList);
+    this.productList = this.productSvc.getProductsList();
+  }
+
+  refresh() {
+    this.ngOnInit();
   }
 
 }
