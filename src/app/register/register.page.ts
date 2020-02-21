@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { UserService } from './../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private userSvr: UserService
   ) {
     this.initForm();
   }
@@ -44,13 +46,20 @@ export class RegisterPage implements OnInit {
       let passwordIn = this.userForm.controls['password'].value;
       let sexIn = this.userForm.controls['sex'].value;
 
-      let user = new User();
-      user.setName(nameIn);
-      user.setEmail(emailIn);
-      user.setPassword(passwordIn);
-      user.setSex(sexIn);
+      let newUser = new User();
+      newUser.setName(nameIn);
+      newUser.setEmail(emailIn);
+      newUser.setPassword(passwordIn);
 
-      console.log(user);
+      this.userSvr.register(newUser).subscribe(
+        berjaya=>{
+          console.log(berjaya);
+          this.router.navigateByUrl("/home");
+        },
+        gagal=>{
+          this.presentToast("Unable to register user!");
+        }
+      )
     } else {
       this.presentToast("Please fill username, email and password!");
     }

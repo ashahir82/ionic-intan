@@ -1,7 +1,9 @@
+import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { User } from './../model/user';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private userSvr: UserService
   ) {
     this.initForm();
   }
@@ -39,18 +42,19 @@ export class LoginPage implements OnInit {
       let usernameIn = this.userForm.controls['username'].value;
       let passwordIn = this.userForm.controls['password'].value;
 
-      console.log(this.userForm.valid);
+      let newUser = new User();
+      newUser.setEmail(usernameIn);
+      newUser.setPassword(passwordIn);
 
-      var dummyUser = "ashahir";
-      var dummyPass = "123456";
-
-      console.log(usernameIn + " " + passwordIn);
-
-      if((usernameIn == dummyUser) && (passwordIn == dummyPass)) {
-        this.router.navigateByUrl("/home");
-      } else {
-        this.presentToast("Username or password not match!");
-      }
+      this.userSvr.login(newUser).subscribe(
+        berjaya=>{
+          console.log(berjaya);
+          this.router.navigateByUrl("/home");
+        },
+        gagal=>{
+          this.presentToast("Username or password not match!");
+        }
+      )
     } else {
       this.presentToast("Please fill username and password!");
     }

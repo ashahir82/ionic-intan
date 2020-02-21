@@ -1,5 +1,7 @@
 import { User } from './../model/user';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-user-list',
@@ -10,16 +12,19 @@ export class UserListPage implements OnInit {
 
   userList : User[] = Array<User>();
 
-  constructor() { }
+  constructor(
+    private userSvr: UserService,
+  ) { }
 
   ngOnInit() {
-    for (let i = 0; i < 10; i++) {
-      let userBaru = new User();
-      userBaru.setName("User Name " + i);
-      userBaru.setEmail("user@email.co"+i);
-      this.userList.push(userBaru);
-    }
-    console.log(this.userList);
+    this.userSvr.getUserListFromApi().subscribe(
+      berjaya=> {
+       this.userList = berjaya
+      },
+      gagal=> {
+        console.log("gagal")
+      }
+    )
   }
 
 }

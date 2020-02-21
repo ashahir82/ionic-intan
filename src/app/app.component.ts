@@ -20,12 +20,12 @@ export class AppComponent implements OnInit {
     {
       title: 'User List',
       url: '/user-list',
-      icon: 'user'
+      icon: 'people'
     },
     {
       title: 'Product List',
       url: '/product-list',
-      icon: 'user'
+      icon: 'cart'
     },
     {
       title: 'Inbox',
