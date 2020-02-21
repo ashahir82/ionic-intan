@@ -16,7 +16,15 @@ export class ProductListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.productList = this.productSvc.getProductsList();
+    //this.productList = this.productSvc.getProductsList();
+    this.productSvc.getProductListFromApi().subscribe(
+      berjaya=> {
+       this.productList = berjaya
+      },
+      gagal=> {
+        console.log("gagal")
+      }
+    )
   }
 
   refresh() {

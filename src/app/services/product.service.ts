@@ -1,12 +1,20 @@
 import { Product } from './../model/product';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: "root"
 })
 export class ProductService {
-    constructor() {
+    constructor(
+        private httpClient: HttpClient,
+    ) {
 
+    }
+
+    getProductListFromApi(): Observable<Product[]> {
+        return this.httpClient.get<Product[]>("http://ionic-api.test/api/dbquery");
     }
 
     getGreeting() {

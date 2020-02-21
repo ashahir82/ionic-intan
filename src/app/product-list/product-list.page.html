@@ -11,9 +11,11 @@
   <ion-list>
     <ion-item *ngFor="let product of productList">    
       <ion-thumbnail slot="start">
-        <img src="./assets/images/logo.png">
+      <img src="http://ionic-api.test/upload/{{product.img}}">
       </ion-thumbnail>
-      <ion-label>{{ product.name }}</ion-label>
+      <ion-label>
+        {{ product.name }}
+      </ion-label>
       <div class="item-note" color="primary" slot="end">{{ product.price | currency:"RM"}}</div>
     </ion-item>
   </ion-list>
